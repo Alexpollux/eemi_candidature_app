@@ -14,6 +14,7 @@ function CallbackHandler() {
       const token_hash = searchParams.get('token_hash')
       const type = searchParams.get('type')
 
+      console.log('=== CALLBACK DEBUG ===')
       console.log('token_hash:', token_hash)
       console.log('type:', type)
 
@@ -23,15 +24,18 @@ function CallbackHandler() {
           type: type as any,
         })
 
-        console.log('verifyOtp data:', data)
-        console.log('verifyOtp error:', error)
+        console.log('data:', JSON.stringify(data))
+        console.log('error:', JSON.stringify(error))
 
         if (!error) {
+          console.log('Success - redirecting to /login')
           router.push('/login')
           return
         }
 
-        console.log('Erreur verifyOtp:', error.message)
+        console.log('Error - redirecting to /login anyway')
+      } else {
+        console.log('No token_hash or type found')
       }
 
       router.push('/login')

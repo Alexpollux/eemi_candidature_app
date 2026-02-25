@@ -1,7 +1,12 @@
-import type { NextConfig } from "next";
+const nextConfig = {
+  headers: async () => [
+    {
+      source: '/auth/callback',
+      headers: [
+        { key: 'Cache-Control', value: 'no-store, max-age=0' }
+      ]
+    }
+  ]
+}
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
-
-export default nextConfig;
+export default nextConfig

@@ -14,16 +14,24 @@ function CallbackHandler() {
       const token_hash = searchParams.get('token_hash')
       const type = searchParams.get('type')
 
+      console.log('token_hash:', token_hash)
+      console.log('type:', type)
+
       if (token_hash && type) {
-        const { error } = await supabase.auth.verifyOtp({
+        const { data, error } = await supabase.auth.verifyOtp({
           token_hash,
           type: type as any,
         })
+
+        console.log('verifyOtp data:', data)
+        console.log('verifyOtp error:', error)
 
         if (!error) {
           router.push('/login')
           return
         }
+
+        console.log('Erreur verifyOtp:', error.message)
       }
 
       router.push('/login')
